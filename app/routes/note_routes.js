@@ -27,9 +27,9 @@ module.exports = function (app, db) {
         const details = { '_id': new ObjectID(id) };
         db.collection('notes').findOne(details, (err, item) => {
             if (err) {
-                res.send({ 'error': 'An error has occurred' });
+                res.status(500).send({ 'error': 'An error has occurred' });
             } else {
-                res.send(item);
+                res.status(200).send(item);
             }
         });
     });
@@ -37,11 +37,11 @@ module.exports = function (app, db) {
     // get All
     app.get('/notes', (req, res) => {
         const id = req.params.id;
-        db.collection('notes').find({ 'title' }, (err, item) => {
+        db.collection('notes').find({}).toArray((err, item) => {
             if (err) {
-                res.send({ 'error': 'An error has occurred' });
+                res.status(500).send({ 'error': 'An error has occurred' });
             } else {
-                res.send(item);
+                res.status(200).send(item);
             }
         });
     });
@@ -58,4 +58,9 @@ module.exports = function (app, db) {
             }
         });
     });
-};
+    // on the request to root (localhost:3000/)
+    app.get('/', function (req, res) {
+        res.send('<b>Home Page</b>');
+    });
+}; // end export
+
