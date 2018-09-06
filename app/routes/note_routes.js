@@ -1,5 +1,5 @@
 var ObjectID = require('mongodb').ObjectID;
-
+const myCollection = 'articles'
 module.exports = function (app, db) {
 
     /*************** TESTS ************/
@@ -22,12 +22,13 @@ module.exports = function (app, db) {
     /***************** fin tests */
 
     //get One by ID
-    app.get('/notes/:id', (req, res) => {
+    app.get('/article/:id', (req, res) => {
         const id = req.params.id;
         const details = { '_id': new ObjectID(id) };
-        db.collection('notes').findOne(details, (err, item) => {
+        db.collection(myCollection).findOne(details, (err, item) => {
             if (err) {
                 res.status(500).send({ 'error': 'An error has occurred' });
+                console.log(err)
             } else {
                 res.status(200).send(item);
             }
@@ -35,11 +36,12 @@ module.exports = function (app, db) {
     });
 
     // get All
-    app.get('/notes', (req, res) => {
+    app.get('/articles', (req, res) => {
         const id = req.params.id;
-        db.collection('notes').find({}).toArray((err, item) => {
+        db.collection(myCollection).find({}).toArray((err, item) => {
             if (err) {
                 res.status(500).send({ 'error': 'An error has occurred' });
+                console.log(err)
             } else {
                 res.status(200).send(item);
             }
@@ -48,13 +50,14 @@ module.exports = function (app, db) {
 
 
     // Add one
-    app.post('/notes', (req, res) => {
-        const note = { text: req.body.body, title: req.body.title };
-        db.collection('notes').insert(note, (err, result) => {
+    app.post('/article', (req, res) => {
+        const note = { content: req.body.content, title: req.body.title };
+        db.collection(myCollection).insertOne(note, (err, result) => {
             if (err) {
-                res.send({ 'error': 'An error has occurred' });
+                res.status(500).send({ 'error': 'An error has occurred' });
+                console.log(err)
             } else {
-                res.send(result.ops[0]);
+                res.status(200).send(result.ops[0]);
             }
         });
     });
