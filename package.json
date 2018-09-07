@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Malta weather forcast",
   "main": "server.js",
-  "tips" : "npm run dev",
+  "tips": "npm run dev",
   "scripts": {
-    "dev": "nodemon server.js" 
+    "start": "cd server && node index.js",
+    "dev": "cd server && nodemon server.js"
   },
   "author": "Stéphane Lanteri",
   "license": "ISC",
