@@ -3,15 +3,17 @@
   "version": "1.0.0",
   "description": "Malta weather forcast",
   "main": "server.js",
+  "tips" : "npm run dev",
   "scripts": {
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js" 
   },
   "author": "Stéphane Lanteri",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.3",
-    "mongodb": "^3.1.4"
+    "mongodb": "^3.1.4",
+    "node-fetch": "^2.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

@@ -1,3 +1,5 @@
+const fetch = require('node-fetch')
+
 var ObjectID = require('mongodb').ObjectID;
 const myCollection = 'articles'
 module.exports = function (app, db) {
@@ -20,6 +22,25 @@ module.exports = function (app, db) {
     //     });
     // });
     /***************** fin tests */
+
+    //fetch weather
+    app.get('/weather', (req, res) => {
+        const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?id=2562305';
+        const apiId = '&appid=87c58a605846f73484361aef29c5c4fb&units=metric';
+        const apiUrl = (baseUrl + apiId)
+
+        fetch(apiUrl)
+            .then(res => res.json())
+            .then(data => {
+                res.send({ data });
+                // res.send(console.log({ data }));
+            })
+            .catch(err => {
+                // res.redirect('/error');
+                res.send(console.log(err))
+                res.send(err)
+            });
+    })
 
     //get One by ID
     app.get('/article/:id', (req, res) => {
