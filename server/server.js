@@ -7,9 +7,11 @@ var db = require('./config/db')
 const app = express()
 const port = process.env.PORT || 8080
 
-app.use(express.static(path.join(__dirname, '../build')));
-
+// app.use(express.static(path.join(__dirname, '../client/build')));
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// Import Routes directory
+require('./routes')(app);
 
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
     if (err) return console.log(err)

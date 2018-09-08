@@ -1,7 +1,9 @@
 const fetch = require('node-fetch')
+const path = require('path');
 
 var ObjectID = require('mongodb').ObjectID;
 const myCollection = 'articles'
+
 module.exports = function (app, db) {
 
     // on the request to root (localhost:3000/)
@@ -11,14 +13,7 @@ module.exports = function (app, db) {
 
     // serve React page    
     app.get('/app', (req, res) => {
-        //res.send('<b>Home Page</b>');
-        if (err) {
-            res.status(500).send('Error somewhere')
-            console.log(err)
-        }
-        else {
-            res.sendFile(path.join(__dirname, '../../build', 'index.html'))
-        }
+        res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
     });
 
     //fetch weather
