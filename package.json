@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Malta weather forcast",
   "main": "server.js",
-  "tips": "npm run dev",
+  "tips": "concurrently \"npm run server\" \"npm run client\"",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "npm run server",
     "server": "cd server && node server.js",
     "client": "cd client && npm run start",
-    "dev": "cd server && nodemon server.js"
+    "dev": "cd server && nodemon server.js",
+    "dev2": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Stéphane Lanteri",
   "license": "ISC",
