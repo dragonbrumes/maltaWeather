@@ -5,9 +5,20 @@ const myCollection = 'articles'
 module.exports = function (app, db) {
 
     // on the request to root (localhost:3000/)
-    app.get('/', function (req, res) {
+    app.get('/', (req, res) => {
+        res.send('<b>You are in the front page</b>')
+    })
+
+    // serve React page    
+    app.get('/app', (req, res) => {
         //res.send('<b>Home Page</b>');
-        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+        if (err) {
+            res.status(500).send('Error somewhere')
+            console.log(err)
+        }
+        else {
+            res.sendFile(path.join(__dirname, '../../build', 'index.html'))
+        }
     });
 
     //fetch weather
