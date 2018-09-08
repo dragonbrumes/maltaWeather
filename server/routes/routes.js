@@ -4,24 +4,11 @@ var ObjectID = require('mongodb').ObjectID;
 const myCollection = 'articles'
 module.exports = function (app, db) {
 
-    /*************** TESTS ************/
-    // // GETS A SINGLE USER FROM THE DATABASE
-    // app.get('/notes2/:id', function (req, res) {
-    //     db.collection('notes').findById(req.params.id, function (err, user) {
-    //         if (err) return res.status(500).send("There was a problem finding the user.");
-    //         if (!user) return res.status(404).send("No user found.");
-    //         res.status(200).send(user);
-    //     });
-    // });
-
-    // // RETURNS ALL THE USERS IN THE DATABASE
-    // app.get('/notes', function (req, res) {
-    //     db.collection('notes').find({}, function (err, item) {
-    //         if (err) return res.status(500).send("There was a problem finding the users.");
-    //         res.status(200).send(item);
-    //     });
-    // });
-    /***************** fin tests */
+    // on the request to root (localhost:3000/)
+    app.get('/', function (req, res) {
+        //res.send('<b>Home Page</b>');
+        res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+    });
 
     //fetch weather
     app.get('/weather', (req, res) => {
@@ -82,9 +69,26 @@ module.exports = function (app, db) {
             }
         });
     });
-    // on the request to root (localhost:3000/)
-    app.get('/', function (req, res) {
-        res.send('<b>Home Page</b>');
-    });
+
+
+    /*************** TESTS ************/
+    // // GETS A SINGLE USER FROM THE DATABASE
+    // app.get('/notes2/:id', function (req, res) {
+    //     db.collection('notes').findById(req.params.id, function (err, user) {
+    //         if (err) return res.status(500).send("There was a problem finding the user.");
+    //         if (!user) return res.status(404).send("No user found.");
+    //         res.status(200).send(user);
+    //     });
+    // });
+
+    // // RETURNS ALL THE USERS IN THE DATABASE
+    // app.get('/notes', function (req, res) {
+    //     db.collection('notes').find({}, function (err, item) {
+    //         if (err) return res.status(500).send("There was a problem finding the users.");
+    //         res.status(200).send(item);
+    //     });
+    // });
+    /***************** fin tests */
+
 }; // end export
 

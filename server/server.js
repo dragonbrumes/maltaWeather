@@ -1,10 +1,14 @@
 const express = require('express')
-const MongoClient = require('mongodb').MongoClient
 const bodyParser = require('body-parser')
+const path = require('path');
+const MongoClient = require('mongodb').MongoClient
 var db = require('./config/db')
 
 const app = express()
-const port = process.env.PORT || 8000
+const port = process.env.PORT || 8080
+
+app.use(express.static(path.join(__dirname, '../client/build')));
+
 app.use(bodyParser.urlencoded({ extended: true }))
 
 MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {

@@ -1,3 +1,4 @@
 /node_modules
-/app/config
+/server/config
+/client/node_modules
 tips.md

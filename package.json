@@ -5,8 +5,9 @@
   "main": "server.js",
   "tips": "npm run dev",
   "scripts": {
-    "start": "concurrently --kill-others-on-fail \"npm run server\"",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "cd server && node server.js",
+    "client": "cd client && npm run start",
     "dev": "cd server && nodemon server.js"
   },
   "author": "Stéphane Lanteri",
