@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './Home'
 import Articles from './Articles'
-// import Schedule from './Schedule'
+import Weather from './Weather'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -14,7 +14,7 @@ const Main = () => (
         <Switch>
             <Route exact path='/' component={Home} />
             <Route path='/articles' component={Articles} />
-            {/* <Route path='/schedule' component={Schedule} /> */}
+            <Route path='/Weather' component={Weather} />
         </Switch>
     </main>
 )

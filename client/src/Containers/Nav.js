@@ -9,7 +9,7 @@ class Nav extends Component {
                     <ul>
                         <li><Link to='/'>Home</Link></li>
                         <li><Link to='/articles'>articles</Link></li>
-                        <li><Link to='/schedule'>Schedule</Link></li>
+                        <li><Link to='/weather'>Weather</Link></li>
                     </ul>
                 </nav>
             </header>

@@ -1,42 +1,43 @@
 const fetch = require('node-fetch')
 const path = require('path');
+var cors = require('cors')
 
 var ObjectID = require('mongodb').ObjectID;
 const myCollection = 'articles'
 
 module.exports = function (app, db) {
 
-    // on the request to root (localhost:3000/)
-    app.get('/', (req, res) => {
-        res.send('<b>You are in the front page</b>')
-    })
+    // // on the request to root (localhost:3000/)
+    // app.get('/', (req, res) => {
+    //     res.send('<b>You are in the front page</b>')
+    // })
 
-    // serve React page    
-    app.get('/app', (req, res) => {
-        res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
-    });
+    // // serve React page    
+    // app.get('/app', (req, res) => {
+    //     res.sendFile(path.join(__dirname, '../../client/build', 'index.html'))
+    // });
 
-    //fetch weather
-    app.get('/weather', (req, res) => {
-        const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?id=2562305';
-        const apiId = '&appid=87c58a605846f73484361aef29c5c4fb&units=metric';
-        const apiUrl = (baseUrl + apiId)
+    // //fetch weather
+    // app.get('/api/weather', cors(), (req, res, next) => {
+    //     const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?id=2562305';
+    //     const apiId = '&appid=87c58a605846f73484361aef29c5c4fb&units=metric';
+    //     const apiUrl = (baseUrl + apiId)
 
-        fetch(apiUrl)
-            .then(res => res.json())
-            .then(data => {
-                res.send({ data });
-                // res.send(console.log({ data }));
-            })
-            .catch(err => {
-                // res.redirect('/error');
-                res.send(console.log(err))
-                res.send(err)
-            });
-    })
+    //     fetch(apiUrl)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             res.send({ data });
+    //             // res.send(console.log({ data }));
+    //         })
+    //         .catch(err => {
+    //             // res.redirect('/error');
+    //             res.send(console.log(err))
+    //             res.send(err)
+    //         });
+    // })
 
     //get One by ID
-    app.get('/article/:id', (req, res) => {
+    app.get('/api/article/:id', (req, res) => {
         const id = req.params.id;
         const details = { '_id': new ObjectID(id) };
         db.collection(myCollection).findOne(details, (err, item) => {
@@ -50,7 +51,7 @@ module.exports = function (app, db) {
     });
 
     // get All
-    app.get('/articles', (req, res) => {
+    app.get('/api/articles', (req, res) => {
         const id = req.params.id;
         db.collection(myCollection).find({}).toArray((err, item) => {
             if (err) {
@@ -64,7 +65,7 @@ module.exports = function (app, db) {
 
 
     // Add one
-    app.post('/article', (req, res) => {
+    app.post('/api/article', (req, res) => {
         const note = { content: req.body.content, title: req.body.title };
         db.collection(myCollection).insertOne(note, (err, result) => {
             if (err) {
