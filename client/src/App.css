@@ -61,12 +61,27 @@
   /* background-color: lightblue; */
 }
 
-.weather h2 {
+.weather-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-left: .6em;
+  padding-right: .6em;
+  padding-top: .6em;
+}
+
+.weather-header h2 {
   color: white;
   font-style: italic;
-  padding-left: .6em;
-  padding-top: .6em;
   margin: 0px;
+}
+
+.weather-date{
+  color: white;
+  font-style: italic;
+  margin: 0px;
+  padding: 0px;
 }
 
 .weather-conditionBox {

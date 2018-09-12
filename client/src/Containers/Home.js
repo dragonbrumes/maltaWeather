@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from "axios";
 
+import CurrentWeather from './../Components/CurrentWeather'
+
 import "./weather.styl"
 
 class Home extends Component {
@@ -10,7 +12,8 @@ class Home extends Component {
         humidity: null,
         main: undefined,
         description: undefined,
-        wind: null
+        wind: null,
+        time: new Date().toLocaleString(),
     })
 
     componentDidMount() {
@@ -35,15 +38,14 @@ class Home extends Component {
 
 
     render() {
-        const { temp, humidity, icon, main, description, wind } = this.state
+        const { time } = this.state
         return (
             <div className="weather">
-                <h2>Current weather</h2>
-                <div className="weather-conditionBox">
-                    <img src={`http://openweathermap.org/img/w/${icon}.png`} width="100" heigth="100" alt="icon" />
-                    <div className="weather-sky">{description}</div>
-                    <div className="">{temp}° <span className="unit">Celcius</span></div>
+                <div className="weather-header">
+                    <h2>Current weather</h2>
+                    <div className="weather-date">{time}</div>
                 </div>
+                <CurrentWeather {...this.state} />
             </div>
 
         );
