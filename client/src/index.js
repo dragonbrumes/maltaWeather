@@ -6,7 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import 'babel-polyfill';
 
 import './index.css';
-import App from './App';
+import App from './Containers/App/App';
 
 ReactDOM.render(
     <Router>

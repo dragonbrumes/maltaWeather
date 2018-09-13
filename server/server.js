@@ -36,10 +36,11 @@ MongoClient.connect(db.url, { useNewUrlParser: true }, (err, database) => {
 // Serve static assets
 app.use(express.static(path.resolve(__dirname, '../', 'client/build')));
 
-//fetch weather route. Add to put it before the catchAll route for React
-app.get('/api/weather', (req, res, next) => {
+//fetch CURRENT weather route. Add to put it before the catchAll route for React
+app.get('/api/weather/:units', (req, res, next) => {
+    var units = req.params.units;
     const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?id=2562305';
-    const apiId = '&appid=87c58a605846f73484361aef29c5c4fb&units=metric';
+    const apiId = '&appid=87c58a605846f73484361aef29c5c4fb&units=' + units;
     const apiUrl = (baseUrl + apiId)
 
     fetch(apiUrl)
@@ -55,6 +56,25 @@ app.get('/api/weather', (req, res, next) => {
         });
 })
 
+
+//fetch FORECAST weather route. Add to put it before the catchAll route for React
+app.get('/api/forecast', (req, res, next) => {
+    const baseUrl = 'http://api.openweathermap.org/data/2.5/forecastid=2562305';
+    const apiId = '&appid=886e11ce358c57ac6df061c636678a92&units=metric';
+    const apiUrl = (baseUrl + apiId)
+
+    fetch(apiUrl)
+        .then(res => res.json())
+        .then(data => {
+            res.send({ data });
+            // res.send(console.log({ data }));
+        })
+        .catch(err => {
+            // res.redirect('/error');
+            res.send(console.log(err))
+            res.send(err)
+        });
+})
 
 // Always return the main index.html, so react-router render the route in the client
 app.get('*', (req, res) => {
