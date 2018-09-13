@@ -18,8 +18,8 @@ class Home extends Component {
     fetchWeather = (newUnits = "metric") => {
         //call the current weather API
         const { units } = this.state
-        // axios.get("http://52ebfe0d26d2472aac2bb56f1282a414.testmyurl.ws/api/weather")
-        axios.get("http://localhost:8080/api/weather/" + newUnits)
+        // axios.get("http://localhost:8080/api/weather/" + newUnits)
+        axios.get("http://52ebfe0d26d2472aac2bb56f1282a414.testmyurl.ws/api/weather/" + newUnits)
             .then(res => {
                 // console.log(res.data.data)
                 const { temp, humidity } = res.data.data.main
