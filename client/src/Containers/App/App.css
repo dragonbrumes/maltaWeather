@@ -1,0 +1,113 @@
+.wrapper {
+  background: linear-gradient(to right, rgba(242,242,242,1) 0%,rgba(178,178,178,1) 51%,rgba(242,242,242,1) 100%);
+}
+.app {
+  /* width: 100%; */
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
+  max-width: 800px;
+  margin: auto
+}
+
+/* .App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+} */
+
+.header {
+  padding-left: .3em;
+  color: white;
+  background-color: #1E74FF;
+  height: 10vh;
+  margin: 0
+}
+
+.header h1 {
+  margin: 0px;
+  padding: .2em;
+}
+
+.weather {
+  width: 100%;
+  height: 90vh;
+  margin: 0px;
+  background-image: url("../../static/assets/malta-landscape_opt.jpg");
+  background-size: cover;
+  align-items: center
+  /* display: block; */
+  /* border : 1px solid red; */
+  /* background: linear-gradient(to bottom, #f2f5f6 0%,#e3eaed 37%,#c8d7dc 100%); */
+  /* background-color: lightblue; */
+}
+
+.weather-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-left: .6em;
+  padding-right: .6em;
+  padding-top: .6em;
+}
+
+.weather-header h2 {
+  color: white;
+  font-style: italic;
+  margin: 0px;
+}
+
+.weather-date{
+  color: white;
+  font-style: italic;
+  margin: 0px;
+  padding: 0px;
+}
+
+.weather-conditionBox {
+  display: block;
+  font-size: 2em;
+  color: white;
+  font-style: bold;
+  background: linear-gradient(to bottom, rgba(158,206,246,0.3) 0%,rgba(158,206,246,0.3) 1%,rgba(195,229,254,0.3) 50%,rgba(158,206,246,0.3) 100%);
+  /* background: transparent; */
+  border: 1px solid rgb(43, 159, 226);
+  width: 150px;
+  margin: 10px auto;
+  padding: .5em 0.3em;
+  align-items: center; 
+  text-align: center;
+  border-radius: 10%;
+}
+
+.weather-sky{
+  font-size: 0.6em;
+}
+.weather-sky:first-letter{
+  text-transform: uppercase;
+}
+
+.unit {
+  font-size: 0.5em;
+  padding-left: 0.2em;
+}
