@@ -59,7 +59,7 @@ app.get('/api/weather/:units', (req, res, next) => {
 
 //fetch FORECAST weather route. Add to put it before the catchAll route for React
 app.get('/api/forecast', (req, res, next) => {
-    const baseUrl = 'http://api.openweathermap.org/data/2.5/forecastid=2562305';
+    const baseUrl = 'http://api.openweathermap.org/data/2.5/forecast?id=2562305';
     const apiId = '&appid=886e11ce358c57ac6df061c636678a92&units=metric';
     const apiUrl = (baseUrl + apiId)
 
