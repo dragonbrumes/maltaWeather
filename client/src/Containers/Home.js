@@ -4,6 +4,7 @@ import _ from "lodash"
 import moment from 'moment';
 
 import CurrentWeather from '../Components/CurrentWeather'
+import ForecastWeather from '../Components/ForecastWeather'
 
 class Home extends Component {
 
@@ -14,7 +15,10 @@ class Home extends Component {
         main: undefined,
         description: undefined,
         wind: null,
+        forecast: undefined,
     })
+
+
 
     fetchWeather = (newUnits = "metric") => {
         //call the current weather API
@@ -39,59 +43,34 @@ class Home extends Component {
 
     }
 
-    fetchForecast = () => {
+    fetchForecast = (newUnits = "metric") => {
         //call the forecast weather api
-        const dayResults = []
-        axios.get("http://localhost:8080/api/forecast")
+        const dayFilterResults = []
+        axios.get("http://localhost:8080/api/forecast/" + newUnits)
             .then(res => {
                 const results = res.data.data.list
-                // console.log(res.data.data.list)
-
-                results.forEach((element, key) => {
-
-                    const dayFinder = Object.keys(element).filter(function (key) {
-                        // console.log(element[key])
-                        // return _.includes(element[key], "12:00:00")
-
-                        return (_.includes(element[key], "12:00:00"))
-                        // return element[key] == dayHolder + ' ' + '12:00:00'
-                    }) // Object.keys
-                    // console.log(dayFinder)
-                    console.log(element[dayFinder], key)
-
-                    // console.log(Object.keys(element)
-                    //     .filter((key) => element[key] === "12:00:00")
-                    // )
-
-                    // console.log(Object.keys(element)
-                    //     .includes((key) => element[key] === " 12:00:00")
-                    // )
-
-                    // const dayFinder2 = _.includes(element.dt_txt, "12:00:00")
-                    // console.log(element.dt_txt.slice(10))
-                    // console.log(dayFinder2)
-
-                    // console.log(element.dt_txt.slice(10) === _.includes(element.dt_txt, "12:00:00") ? element : "nope")
-                    // console.log(_.filter(element, )        (s => s.includes('12:00'))      )
-
-                }) // forEach
-
+                // filtering to select only one day at 12:00
+                const dayFilter = results.filter(el => {
+                    return _.includes(el.dt_txt, "12:00")
+                })
+                // stock filtered days to an array
+                dayFilterResults.push(dayFilter)
+                // insert into the state
+                this.setState({
+                    forecast: dayFilterResults
+                })
 
             }).catch(err => {
                 console.log(err)
             })
-        // console.log(dayResults)
+
+        // console.log(dayFilterResults)
     }
 
 
     componentDidMount() {
 
-        // test filter + includes
-        // const items = ['item 1', 'thing', 'id-3-text', 'class'];
-        // const matches = items.filter(key => key.includes('thi'));
-        // console.log(matches)
-
-        // this.fetchWeather()
+        this.fetchWeather()
         this.fetchForecast()
 
 
@@ -106,17 +85,35 @@ class Home extends Component {
         })
         // re fetch the data
         this.fetchWeather(newUnits)
+        this.fetchForecast(newUnits)
     }
 
+
+
+
     render() {
-        const { date } = this.state
+        const { date, units, forecast } = this.state
+
+        // forecast is empty at first call so checking if none null
+        // iterates elements
+
+        // if (forecast !== undefined) {
+        //     // console.log(forecast[0])
+        //     forecast[0].forEach((element, key) => {
+        //         return console.log(element.main.temp, element.weather[0].description)
+        //         // return <ForecastWeather temp={element.main.temp} desc={element.weather[0].description} />
+        //     })
+        // } // and if if
+
         return (
-            <div className="weather">
+            <div className="weather" >
                 <div className="weather-header">
                     <h2>Current weather</h2>
                     <div className="weather-date">{date}</div>
                 </div>
                 <CurrentWeather {...this.state} onClick={this.handleClick} />
+                {forecast !== undefined && <ForecastWeather forecast={forecast} units={units} onClick={this.handleClick} />}
+
             </div>
 
         );

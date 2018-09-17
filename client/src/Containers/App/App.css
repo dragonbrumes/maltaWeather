@@ -111,3 +111,25 @@
   font-size: 0.5em;
   padding-left: 0.2em;
 }
+
+.forecast-wrapper{
+  display: flex;
+  flex-direction: row;
+  
+}
+
+.forecast-conditionBox{
+  display: block;
+  font-size: 2em;
+  color: white;
+  font-style: bold;
+  background: linear-gradient(to bottom, rgba(158,206,246,0.3) 0%,rgba(158,206,246,0.3) 1%,rgba(195,229,254,0.3) 50%,rgba(158,206,246,0.3) 100%);
+  /* background: transparent; */
+  border: 1px solid rgb(43, 159, 226);
+  width: 150px;
+  margin: 10px 5px;
+  padding: .5em 0.3em;
+  align-items: center; 
+  text-align: center;
+  border-radius: 10%;
+}
