@@ -51,6 +51,7 @@ class Home extends Component {
         axios.get(API_ROOT + "forecast/" + newUnits)
             .then(res => {
                 const results = res.data.data.list
+                // console.log(results)
                 // filtering to select only one day at 12:00
                 const dayFilter = results.filter(el => {
                     return _.includes(el.dt_txt, "12:00")
@@ -85,7 +86,7 @@ class Home extends Component {
         })
         // re fetch the data
         this.fetchWeather(newUnits)
-        // this.fetchForecast(newUnits)
+        this.fetchForecast(newUnits)
     }
 
 
@@ -96,15 +97,14 @@ class Home extends Component {
 
         return (
             <div className="weather" >
-                <div className="weather-header">
+                <div className="weather-current">
                     <h2>Current weather</h2>
-                    <div className="weather-date">{date}</div>
+                    {temp !== null && <CurrentWeather {...this.state} onClick={this.handleClick} />}
                 </div>
-                {temp !== null && <CurrentWeather {...this.state} onClick={this.handleClick} />}
-                <div className="weather-header">
+                <div className="weather-forecast">
                     <h2>5 days forecast weather</h2>
+                    {forecast !== undefined && <ForecastWeather forecast={forecast} units={units} onClick={this.handleClick} />}
                 </div>
-                {forecast !== undefined && <ForecastWeather forecast={forecast} units={units} onClick={this.handleClick} />}
             </div>
 
         );

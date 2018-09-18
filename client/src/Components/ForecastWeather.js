@@ -9,14 +9,22 @@ const ForecastWeather = ({ forecast, units, onClick }) => {
     const show =
         forecast[0].map((element, key) => {
             // day format, only the day, no hours
-            const day = moment(element.dt_txt).format('LL')
+            // console.log(element)
+            const day = moment(element.dt_txt).format('ddd')
 
             return (
                 <div key={element.main.temp} className="forecast-conditionBox" >
-                    <div className="weather-sky" >{day}</div>
+                    <div className="forecast-day" >{day}</div>
                     <img src={`http://openweathermap.org/img/w/${element.weather[0].icon}.png`} width="100" heigth="100" alt="icon" />
-                    <div className="weather-sky" > {element.weather[0].description}</div>
-                    <div className="">{element.main.temp}<span className="unit">° <a href="#" onClick={onClick} className="unit-link"> {unit}</a></span></div>
+                    <div className="forecast-description" > {element.weather[0].description}</div>
+                    <div className="forecast-temp">
+                        {/* <div className="forecast-temp-min">
+                            min: {element.main.temp_min}<span className="unit">° <a href="#" onClick={onClick} className="unit-link"> {unit}</a></span>
+                        </div> */}
+                        <div className="forecast-temp-max">
+                            {element.main.temp_max}°<span className="unit"> <a href="#" onClick={onClick} className="forecast-unit-link">{unit}</a></span>
+                        </div>
+                    </div>
                 </div >
             )
         })

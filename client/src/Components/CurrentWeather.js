@@ -1,13 +1,26 @@
 import React from 'react';
+import moment from 'moment'
+
 
 const CurrentWeather = ({ ...props, onClick }) => {
-    const { temp, icon, description, units } = props
+
+    const { temp, icon, description, date, units } = props
     const unit = units === "metric" ? "C" : "F"
+    const timeFormated = moment().format('LT')
+    const dateFormated = moment().format('ddd MMM. D')
     return (
-        <div className="weather-conditionBox">
-            <img src={`http://openweathermap.org/img/w/${icon}.png`} width="100" heigth="100" alt="icon" />
-            <div className="weather-sky">{description}</div>
-            <div className="">{temp}<span className="unit">° <a href="#" onClick={onClick} className="unit-link"> {unit}</a></span></div>
+        <div className="current-conditionBox">
+            <div className="current-sky">
+                <img src={`http://openweathermap.org/img/w/${icon}.png`} alt="icon" className="current-icon" />
+                <div className="current-description">{description}</div>
+            </div>
+            <div className="current-temp">{temp}<span className="degree">°</span>
+                <span className="unit"><a href="#" onClick={onClick} className="unit-link">{unit}</a></span>
+            </div>
+            <div>
+                <div className="current-time">{timeFormated}</div>
+                <div className="current-date">{dateFormated}</div>
+            </div>
         </div>
     )
 
