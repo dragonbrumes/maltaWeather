@@ -6,6 +6,9 @@ import moment from 'moment';
 import CurrentWeather from '../Components/CurrentWeather'
 import ForecastWeather from '../Components/ForecastWeather'
 
+import { API_ROOT } from '../config/apiConfig'
+
+
 class Home extends Component {
 
     state = ({
@@ -16,6 +19,7 @@ class Home extends Component {
         description: undefined,
         wind: null,
         forecast: undefined,
+        date: new Date().toLocaleString(),
     })
 
 
@@ -23,10 +27,9 @@ class Home extends Component {
     fetchWeather = (newUnits = "metric") => {
         //call the current weather API
         const { units } = this.state
-        axios.get("http://localhost:8080/api/weather/" + newUnits)
+        axios.get(API_ROOT + "weather/" + newUnits)
             // axios.get("http://52ebfe0d26d2472aac2bb56f1282a414.testmyurl.ws/api/weather/" + newUnits)
             .then(res => {
-                // console.log(res.data.data)
                 const { temp, humidity } = res.data.data.main
                 const { icon, main, description } = res.data.data.weather["0"]
                 const { speed } = res.data.data.wind
@@ -69,9 +72,9 @@ class Home extends Component {
 
 
     componentDidMount() {
-
+        console.log(API_ROOT)
         this.fetchWeather()
-        this.fetchForecast()
+        // this.fetchForecast()
 
 
     }
@@ -85,7 +88,7 @@ class Home extends Component {
         })
         // re fetch the data
         this.fetchWeather(newUnits)
-        this.fetchForecast(newUnits)
+        // this.fetchForecast(newUnits)
     }
 
 
@@ -94,17 +97,6 @@ class Home extends Component {
     render() {
         const { date, units, forecast } = this.state
 
-        // forecast is empty at first call so checking if none null
-        // iterates elements
-
-        // if (forecast !== undefined) {
-        //     // console.log(forecast[0])
-        //     forecast[0].forEach((element, key) => {
-        //         return console.log(element.main.temp, element.weather[0].description)
-        //         // return <ForecastWeather temp={element.main.temp} desc={element.weather[0].description} />
-        //     })
-        // } // and if if
-
         return (
             <div className="weather" >
                 <div className="weather-header">
@@ -112,8 +104,10 @@ class Home extends Component {
                     <div className="weather-date">{date}</div>
                 </div>
                 <CurrentWeather {...this.state} onClick={this.handleClick} />
+                <div className="weather-header">
+                    <h2>5 days forecast weather</h2>
+                </div>
                 {forecast !== undefined && <ForecastWeather forecast={forecast} units={units} onClick={this.handleClick} />}
-
             </div>
 
         );
