@@ -78,7 +78,7 @@ app.get('/api/forecast/:units', (req, res, next) => {
 })
 
 // Always return the main index.html, so react-router render the route in the client
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../', 'client/build', 'index.html'));
 });
 
