@@ -112,6 +112,14 @@
   padding-left: 0.2em;
 }
 
+.unit-link:hover{
+  text-decoration: non;
+  color: white;
+}
+.unit-link:visited{
+  color: white;
+}
+
 .forecast-wrapper{
   display: flex;
   flex-direction: row;

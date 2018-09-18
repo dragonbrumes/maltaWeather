@@ -7,7 +7,7 @@ const CurrentWeather = ({ ...props, onClick }) => {
         <div className="weather-conditionBox">
             <img src={`http://openweathermap.org/img/w/${icon}.png`} width="100" heigth="100" alt="icon" />
             <div className="weather-sky">{description}</div>
-            <div className="">{temp}<span className="unit">° <a href="#" onClick={onClick}> {unit}</a></span></div>
+            <div className="">{temp}<span className="unit">° <a href="#" onClick={onClick} className="unit-link"> {unit}</a></span></div>
         </div>
     )
 

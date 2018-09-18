@@ -28,7 +28,6 @@ class Home extends Component {
         //call the current weather API
         const { units } = this.state
         axios.get(API_ROOT + "weather/" + newUnits)
-            // axios.get("http://52ebfe0d26d2472aac2bb56f1282a414.testmyurl.ws/api/weather/" + newUnits)
             .then(res => {
                 const { temp, humidity } = res.data.data.main
                 const { icon, main, description } = res.data.data.weather["0"]
@@ -49,7 +48,7 @@ class Home extends Component {
     fetchForecast = (newUnits = "metric") => {
         //call the forecast weather api
         const dayFilterResults = []
-        axios.get("http://localhost:8080/api/forecast/" + newUnits)
+        axios.get(API_ROOT + "forecast/" + newUnits)
             .then(res => {
                 const results = res.data.data.list
                 // filtering to select only one day at 12:00
@@ -72,11 +71,9 @@ class Home extends Component {
 
 
     componentDidMount() {
-        console.log(API_ROOT)
+
         this.fetchWeather()
-        // this.fetchForecast()
-
-
+        this.fetchForecast()
     }
 
     handleClick = () => {
@@ -95,7 +92,7 @@ class Home extends Component {
 
 
     render() {
-        const { date, units, forecast } = this.state
+        const { temp, date, units, forecast } = this.state
 
         return (
             <div className="weather" >
@@ -103,7 +100,7 @@ class Home extends Component {
                     <h2>Current weather</h2>
                     <div className="weather-date">{date}</div>
                 </div>
-                <CurrentWeather {...this.state} onClick={this.handleClick} />
+                {temp !== null && <CurrentWeather {...this.state} onClick={this.handleClick} />}
                 <div className="weather-header">
                     <h2>5 days forecast weather</h2>
                 </div>
