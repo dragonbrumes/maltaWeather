@@ -204,7 +204,7 @@
   font-style: bold;
   /* background: linear-gradient(to bottom, rgba(158,206,246,0.3) 0%,rgba(158,206,246,0.3) 1%,rgba(195,229,254,0.3) 50%,rgba(158,206,246,0.3) 100%); */
   /* background: transparent; */
-  border: 1px solid rgb(43, 159, 226);
+  /* border: 1px solid rgb(43, 159, 226); */
   width: 15%;
   height: 100%;
   margin: 5px 5px;
@@ -235,4 +235,28 @@
 }
 .forecast-unit-link:hover{
   text-decoration: none;
+}
+
+/*****************/
+/* Media Queries */
+/*****************/
+
+@media all and (max-width: 480px) {
+  .weather {
+    max-width: 90vw;
+  }
+  .app {
+    max-width: 90vw;
+  }
+  .current-conditionBox{
+    flex-direction: column;
+    align-items: center;
+  }
+  .current-sky img{
+    width: 100%;
+    position: static;
+  }
+.forecast-conditionBox{
+    margin: 5px 15px;
+  }
 }

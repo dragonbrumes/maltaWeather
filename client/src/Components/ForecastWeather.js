@@ -9,9 +9,9 @@ const ForecastWeather = ({ forecast, units, onClick }) => {
     const show =
         forecast[0].map((element, key) => {
             // day format, only the day, no hours
-            // console.log(element)
             const day = moment(element.dt_txt).format('ddd')
-
+            // reduce the temp to two digits only
+            const temp = element.main.temp_max.toString().substring(0, 2)
             return (
                 <div key={element.main.temp} className="forecast-conditionBox" >
                     <div className="forecast-day" >{day}</div>
@@ -22,7 +22,7 @@ const ForecastWeather = ({ forecast, units, onClick }) => {
                             min: {element.main.temp_min}<span className="unit">° <a href="#" onClick={onClick} className="unit-link"> {unit}</a></span>
                         </div> */}
                         <div className="forecast-temp-max">
-                            {element.main.temp_max}°<span className="unit"> <a href="#" onClick={onClick} className="forecast-unit-link">{unit}</a></span>
+                            {temp}°<span className="unit"> <a href="#" onClick={onClick} className="forecast-unit-link">{unit}</a></span>
                         </div>
                     </div>
                 </div >
