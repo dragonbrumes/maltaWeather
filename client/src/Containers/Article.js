@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
+
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import { API_ROOT } from '../config/apiConfig';
 
@@ -78,7 +81,14 @@ class Article extends Component {
         <div className="article" ref={this.top}>
           <div className="article-content">
             <ReactMarkdown source={title} />
-            <ReactMarkdown source={content} />
+            <PerfectScrollbar
+              speed={0.8}
+              className="area"
+              contentClassName="article-text"
+              horizontal={false}
+              smoothScrolling={true}>
+              <ReactMarkdown source={content} />
+            </PerfectScrollbar>
           </div>
         </div>
       </div>
