@@ -35,7 +35,7 @@ module.exports = function(app, db) {
   //         });
   // })
 
-  //get One by ID
+  //get one article by ID sended by the front
   app.get('/api/article/:id', (req, res) => {
     const id = req.params.id;
     const details = { _id: new ObjectID(id) };
@@ -44,9 +44,9 @@ module.exports = function(app, db) {
         res.status(500).send({ error: 'An error has occurred' });
         console.log(err);
       } else {
-        console.log('--------------');
-        console.log(item);
-        console.log('--------------');
+        // console.log('--------------');
+        // console.log(item);
+        // console.log('--------------');
         res.status(200).send(item);
       }
     });
@@ -63,7 +63,6 @@ module.exports = function(app, db) {
           console.log(err);
         } else {
           res.status(200).send(item);
-          // console.log(item);
         }
       });
   });

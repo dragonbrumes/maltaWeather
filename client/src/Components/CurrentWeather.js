@@ -4,7 +4,7 @@ import moment from 'moment'
 
 const CurrentWeather = ({ ...props, onClick }) => {
 
-    const { temp, icon, description, date, units } = props
+    const { temp, icon, description, units } = props
     const unit = units === "metric" ? "C" : "F"
     const timeFormated = moment().format('LT')
     const dateFormated = moment().format('ddd MMM. D')

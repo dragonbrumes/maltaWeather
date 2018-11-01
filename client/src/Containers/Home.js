@@ -21,7 +21,6 @@ class Home extends Component {
 
   fetchWeather = (newUnits = 'metric') => {
     //call the current weather API
-    const { units } = this.state;
     axios.get(API_ROOT + 'weather/' + newUnits).then(res => {
       const { temp, humidity } = res.data.data.main;
       const { icon, main, description } = res.data.data.weather['0'];
@@ -82,7 +81,7 @@ class Home extends Component {
   };
 
   render() {
-    const { temp, date, units, forecast } = this.state;
+    const { temp, units, forecast } = this.state;
 
     return (
       <div className="weather">

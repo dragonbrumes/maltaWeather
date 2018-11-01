@@ -5,12 +5,13 @@ import registerServiceWorker from './registerServiceWorker';
 
 import 'babel-polyfill';
 
-import './index.css';
+// import './index.css';
 import App from './Containers/App/App';
 
 ReactDOM.render(
-    <Router>
-        <App />
-    </Router>
-    , document.getElementById('root'));
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root')
+);
 registerServiceWorker();

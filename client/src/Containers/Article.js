@@ -1,96 +1,59 @@
 import React, { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
-import _ from 'lodash';
-
-import CurrentWeather from '../Components/CurrentWeather';
-import ForecastWeather from '../Components/ForecastWeather';
+import { withRouter } from 'react-router-dom';
 
 import { API_ROOT } from '../config/apiConfig';
 
 class Article extends Component {
+  constructor(props) {
+    super(props);
+    // create a ref for futur return to top (cf render)
+    this.top = React.createRef();
+  }
+
   state = {
     title: undefined,
     content: undefined,
     articles: ''
   };
 
-  fetchArticles = () => {
-    //call the current weather API
-    // const { units } = this.state;
-    console.log('fetchArticles');
-    axios.get(API_ROOT + 'article/5b93ae34b233f03b20007368').then(res => {
-      console.log(res.data);
-
-      //   const { title, content } = res.data;
-      // const { icon, main, description } = res.data.data.weather['0'];
-      // const { speed } = res.data.data.wind;
-
-      this.setState({ title: res.data.title, content: res.data.content });
-    });
-  };
-  // fetchArticles = () => {
-  //   //call the current weather API
-  //   // const { units } = this.state;
-  //   axios.get(API_ROOT + 'articles').then(res => {
-  //     console.log(res.data);
-
-  //     //   const { title, content } = res.data;
-  //     // const { icon, main, description } = res.data.data.weather['0'];
-  //     // const { speed } = res.data.data.wind;
-
-  //     this.setState({
-  //       articles: res.data
-  //     });
-  //   });
-  // };
-
-  fetchForecast = (newUnits = 'metric') => {
-    const dayFilterResults = [];
-    //call the forecast weather api
-    axios
-      .get(API_ROOT + 'forecast/' + newUnits)
-      .then(res => {
-        const results = res.data.data.list;
-        // console.log(results)
-        // filtering to select only one day at 12:00
-        const dayFilter = results.filter(el => {
-          return _.includes(el.dt_txt, '12:00');
-        });
-        // stock filtered days to an array
-        dayFilterResults.push(dayFilter);
-        // insert into the state
-        this.setState({
-          forecast: dayFilterResults
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    // console.log(dayFilterResults)
-  };
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.someValue !== prevState.someValue) {
+  //     return { someState: nextProps.someValue };
+  //   } else return null;
+  // }
 
   componentDidMount() {
+    //grab article at start
     this.fetchArticles();
-    // this.fetchForecast();
   }
 
-  handleClick = () => {
-    // change the unit value (Celsius /Fahrenheit )
-    const { units } = this.state;
-    const newUnits = units === 'metric' ? 'imperial' : 'metric';
-    this.setState({
-      units: newUnits
+  componentDidUpdate(prevProps) {
+    // listen to new props and compare to old one to know if a rerender should run
+    const { match } = this.props;
+    const oldID = prevProps.match.params.id;
+    const newID = match.params.id;
+    if (oldID !== newID) {
+      this.fetchArticles();
+    }
+    // return to top on loading
+    this.top.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  fetchArticles = () => {
+    // catch the url param of the article id sended by the router
+    const { id } = this.props.match.params;
+    // sending the article id to the back api
+    axios.get(API_ROOT + 'article/' + id).then(res => {
+      // populate state
+      this.setState({ title: res.data.title, content: res.data.content });
     });
-    // re fetch the data
-    this.fetchWeather(newUnits);
-    this.fetchForecast(newUnits);
   };
 
   render() {
     const { title, content } = this.state;
-    console.log(title, content);
+
     // if (articles) {
     //   const Articles = () => {
     //     articles.map(el => {
@@ -104,19 +67,14 @@ class Article extends Component {
     //   }; //const
     // } //if
     return (
-      <div className="weather">
-        <div className="weather-current">
-          <h1>{title}</h1>
-          <ReactMarkdown source="# This is a header ##And this is a paragraph" />
-          {/* <div>{content}</div> */}
-          {/* <Articles /> */}
-          {/* {temp !== null && (
-                        <CurrentWeather {...this.state} onClick={this.handleClick} />
-                    )} */}
+      <div className="article" ref={this.top}>
+        <div className="article-content">
+          <ReactMarkdown source={title} />
+          <ReactMarkdown source={content} />
         </div>
       </div>
     );
   }
 }
-
-export default Article;
+// hoc withRouter for grabing url parameter (match.param)
+export default withRouter(Article);
