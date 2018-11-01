@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -84,22 +85,25 @@ class Home extends Component {
     const { temp, units, forecast } = this.state;
 
     return (
-      <div className="weather">
-        <div className="weather-current">
-          <h2>Current weather</h2>
-          {temp !== null && (
-            <CurrentWeather {...this.state} onClick={this.handleClick} />
-          )}
-        </div>
-        <div className="weather-forecast">
-          <h2>5 days forecast weather</h2>
-          {forecast !== undefined && (
-            <ForecastWeather
-              forecast={forecast}
-              units={units}
-              onClick={this.handleClick}
-            />
-          )}
+      <div>
+        <Helmet title="Malta weather and forecast - malta-weather.net" />
+        <div className="weather">
+          <div className="weather-current">
+            <h2>Current weather</h2>
+            {temp !== null && (
+              <CurrentWeather {...this.state} onClick={this.handleClick} />
+            )}
+          </div>
+          <div className="weather-forecast">
+            <h2>5 days forecast weather</h2>
+            {forecast !== undefined && (
+              <ForecastWeather
+                forecast={forecast}
+                units={units}
+                onClick={this.handleClick}
+              />
+            )}
+          </div>
         </div>
       </div>
     );

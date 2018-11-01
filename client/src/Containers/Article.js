@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 import { withRouter } from 'react-router-dom';
@@ -13,6 +14,7 @@ class Article extends Component {
   }
 
   state = {
+    metaTitle: undefined,
     title: undefined,
     content: undefined,
     articles: ''
@@ -47,12 +49,16 @@ class Article extends Component {
     // sending the article id to the back api
     axios.get(API_ROOT + 'article/' + id).then(res => {
       // populate state
-      this.setState({ title: res.data.title, content: res.data.content });
+      this.setState({
+        metaTitle: res.data.metaTitle,
+        title: res.data.title,
+        content: res.data.content
+      });
     });
   };
 
   render() {
-    const { title, content } = this.state;
+    const { metaTitle, title, content } = this.state;
 
     // if (articles) {
     //   const Articles = () => {
@@ -67,10 +73,13 @@ class Article extends Component {
     //   }; //const
     // } //if
     return (
-      <div className="article" ref={this.top}>
-        <div className="article-content">
-          <ReactMarkdown source={title} />
-          <ReactMarkdown source={content} />
+      <div>
+        <Helmet title={`${metaTitle} - malta-weather.net`} />
+        <div className="article" ref={this.top}>
+          <div className="article-content">
+            <ReactMarkdown source={title} />
+            <ReactMarkdown source={content} />
+          </div>
         </div>
       </div>
     );
