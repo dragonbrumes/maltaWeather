@@ -15,6 +15,7 @@ const CurrentWeather = ({ ...props, onClick }) => {
                 <div className="current-description">{description}</div>
             </div>
             <div className="current-temp">{temp}<span className="degree">°</span>
+            {/* eslint-disable-next-line */}
                 <span className="unit"><a href="#" onClick={onClick} className="unit-link">{unit}</a></span>
             </div>
             <div className="current-datetime">

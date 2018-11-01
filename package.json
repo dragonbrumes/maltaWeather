@@ -1,18 +1,19 @@
 {
   "name": "malta-weather.net",
-  "version": "1.0.0",
-  "description": "Malta weather forcast",
+  "version": "1.1.0",
+  "description": "Malta weather && forcast",
   "main": "server.js",
   "tips": "concurrently \"npm run server\" \"npm run client\"",
   "scripts": {
-    "start": "npm run server && cd client npm run build",
+    "start": "npm run build && npm run server",
+    "build": "cd client && npm run-script build",
     "server": "cd server && node server.js",
     "client": "cd client && npm run start",
     "dev": "cd server && nodemon server.js",
     "dev2": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Stéphane Lanteri",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",

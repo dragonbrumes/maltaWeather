@@ -29,6 +29,7 @@ const ForecastWeather = ({ forecast, units, onClick }) => {
           <div className="forecast-temp-max">
             {temp}°
             <span className="unit">
+              {/* eslint-disable-next-line */}
               <a href="#" onClick={onClick} className="forecast-unit-link">
                 {unit}
               </a>
